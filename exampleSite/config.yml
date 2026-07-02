@@ -1,0 +1,80 @@
+baseURL: "http://localhost:1313/"
+title: OhGoshTheTheme Demo
+theme: OhGoshTheTheme
+
+enableRobotsTXT: false
+buildDrafts: true
+buildFuture: true
+buildExpired: true
+enableEmoji: true
+pygmentsUseClasses: true
+
+minify:
+  disableXML: true
+  minifyOutput: false
+
+params:
+  env: development
+  title: OhGoshTheTheme Demo
+  description: "A demo site for OhGoshTheTheme - a retro terminal-inspired Hugo theme"
+  keywords: [Demo, Theme, Hugo]
+  author: Demo
+  DateFormat: "January 2, 2006"
+  ShowReadingTime: true
+  ShowShareButtons: true
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShareButtons: ["twitter", "linkedin"]
+
+  defaultTheme: terminal
+  themes:
+    - id: terminal
+      label: Terminal
+    - id: github-dark
+      label: GitHub Dark
+    - id: dracula
+      label: Dracula
+    - id: catppuccin-mocha
+      label: Catppuccin Mocha
+    - id: solarized-light
+      label: Solarized Light
+
+  assets:
+    disableFingerprinting: true
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/gandhi-jay/OhGoshTheTheme"
+    - name: twitter
+      url: "https://github.com/gandhi-jay/OhGoshTheTheme"
+
+  profileMode:
+    enabled: true
+    title: OhGoshTheTheme
+    subtitle: A retro terminal-inspired Hugo theme
+    description: A minimal, fast Hugo theme inspired by retro terminals. Supports multiple color schemes, search, archive, social icons, and more.
+    imageUrl: "/images/avatar.png"
+    imageWidth: 120
+    imageHeight: 120
+    imageTitle: OhGoshTheTheme
+    buttons:
+      - name: Posts
+        url: posts
+      - name: About
+        url: about
+
+menu:
+  main:
+    - identifier: posts
+      name: Posts
+      url: /posts/
+      weight: 10
+    - identifier: about
+      name: About
+      url: /about/
+      weight: 20
+
+pagination:
+  pagerSize: 5
