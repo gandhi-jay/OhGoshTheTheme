@@ -1,39 +1,28 @@
 <header class="header">
   <nav class="nav container">
     <div class="logo">
-      <a href="/" accesskey="h" class="logo-link">
+      <a href="/" accesskey="h" class="logo-link"
+        {{- if site.Params.htmxNav }}
+        hx-get="/" hx-target="main" hx-push-url="true" hx-select="main" hx-swap="innerHTML show:top:100ms transition:true"
+        {{- end }}>
         {{- if site.Params.profileMode.imageUrl }}
         <img class="logo-avatar" src="{{ site.Params.profileMode.imageUrl | absURL }}" alt="" width="28" height="28">
         {{- end }}
         <span class="logo-text">{{- site.Title }}</span>
       </a>
       <div class="logo-switches">
-        <div class="theme-selector">
+        <div class="theme-selector" data-default-theme="{{ site.Params.defaultTheme }}">
           <button class="theme-selector-btn" aria-label="Select theme" title="Select theme">
-            <span class="theme-indicator catppuccin-mocha"></span>
-            <span>Catppuccin Mocha</span>
+            <span class="theme-indicator {{ site.Params.defaultTheme }}"></span>
+            <span>{{ (index (where site.Params.themes "id" site.Params.defaultTheme) 0).label }}</span>
           </button>
           <div class="theme-dropdown">
-            <button class="theme-option active" data-theme="catppuccin-mocha">
-              <span class="dot catppuccin-mocha"></span>
-              Catppuccin Mocha
+          {{- range $i, $theme := site.Params.themes }}
+            <button class="theme-option{{ if eq $theme.id site.Params.defaultTheme }} active{{ end }}" data-theme="{{ $theme.id }}">
+              <span class="dot {{ $theme.id }}"></span>
+              {{ $theme.label }}
             </button>
-            <button class="theme-option" data-theme="terminal">
-              <span class="dot terminal"></span>
-              Terminal
-            </button>
-            <button class="theme-option" data-theme="github-dark">
-              <span class="dot github-dark"></span>
-              GitHub Dark
-            </button>
-            <button class="theme-option" data-theme="dracula">
-              <span class="dot dracula"></span>
-              Dracula
-            </button>
-            <button class="theme-option" data-theme="solarized-light">
-              <span class="dot solarized-light"></span>
-              Solarized Light
-            </button>
+          {{- end }}
           </div>
         </div>
       </div>
@@ -44,10 +33,13 @@
       {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL)) | relLangURL }}
       {{- $page_url := $currentPage.RelPermalink | relLangURL }}
       <li>
-        <a href="{{ .URL | relLangURL }}" title="{{ .Title | default .Name }}">
-          <span{{ if eq $menu_item_url $page_url }} class="active" {{ end }}>
+        <a href="{{ .URL | relLangURL }}" title="{{ .Title | default .Name }}"
+          {{- if site.Params.htmxNav }}
+          hx-get="{{ .URL | relLangURL }}" hx-target="main" hx-push-url="true" hx-select="main" hx-swap="innerHTML show:top:100ms transition:true"
+          {{- end }}>
+          <span{{ if eq $menu_item_url $page_url }} class="active"{{ end }}>
             {{- .Pre }}{{ .Name }}{{ .Post -}}
-            </span>
+          </span>
         </a>
       </li>
       {{- end }}

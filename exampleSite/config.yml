@@ -41,6 +41,8 @@ params:
     - id: solarized-light
       label: Solarized Light
 
+  htmxNav: true
+
   assets:
     disableFingerprinting: true
 

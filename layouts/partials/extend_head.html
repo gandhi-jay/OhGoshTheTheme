@@ -1,1 +1,3 @@
-{{- /* Placeholder for custom head content */}}
+{{- if site.Params.htmxNav }}
+{{- partial "htmx/head.html" . }}
+{{- end }}

@@ -1,0 +1,2 @@
+{{- $htmxnav := resources.Get "js/htmx-nav.js" | resources.Minify }}
+<script defer src="{{ $htmxnav.RelPermalink }}"></script>

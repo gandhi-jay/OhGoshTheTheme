@@ -1,4 +1,6 @@
 # Hugo build output
 exampleSite/public/
 exampleSite/.hugo_build.lock
+# Theme symlink for development
+exampleSite/themes/
 .DS_Store
