@@ -1,0 +1,16 @@
+{{- if (.Param "ShowBreadCrumbs") }}
+<nav class="breadcrumbs">
+  <a href="{{ "" | absLangURL }}">Home</a>
+  {{- $rellink := "" }}
+  {{- range (split (trim .RelPermalink "/") "/") }}
+  {{- $rellink = printf "%s/%s" $rellink (urls.Parse .).Path }}
+  {{- $page := $.GetPage $rellink }}
+  {{- $label := humanize . }}
+  {{- with $page }}
+  {{- with .Params.breadcrumb }}{{ $label = . }}{{ end }}
+  {{- end }}
+  <span class="separator">»</span>
+  <a href="{{ $rellink | absLangURL }}">{{ $label }}</a>
+  {{- end }}
+</nav>
+{{- end }}

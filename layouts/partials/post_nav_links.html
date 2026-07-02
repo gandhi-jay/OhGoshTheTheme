@@ -1,0 +1,16 @@
+{{- if or (.PrevInSection) (.NextInSection) }}
+<nav class="post-nav">
+  {{- if .PrevInSection }}
+  <a class="prev" href="{{ .PrevInSection.RelPermalink }}">
+    <span class="nav-label">← Previous</span>
+    {{ .PrevInSection.Title }}
+  </a>
+  {{- end }}
+  {{- if .NextInSection }}
+  <a class="next" href="{{ .NextInSection.RelPermalink }}">
+    <span class="nav-label">Next →</span>
+    {{ .NextInSection.Title }}
+  </a>
+  {{- end }}
+</nav>
+{{- end }}

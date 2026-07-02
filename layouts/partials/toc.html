@@ -1,0 +1,39 @@
+{{- if (.Param "UseHugoToc") }}
+<div class="toc">
+  <details>
+    <summary>Table of Contents</summary>
+    {{ .TableOfContents }}
+  </details>
+</div>
+{{- else }}
+{{- $headers := findRE "<h[2-3].*?>(.|\n)*?</h[2-3]>" .Content }}
+{{- if ge (len $headers) 2 }}
+<div class="toc">
+  <details>
+    <summary>Table of Contents</summary>
+    <nav>
+      <ul class="toc-tree">
+      {{- $inH2 := false }}
+      {{- $inChildren := false }}
+      {{- range $headers }}
+        {{- $id := . | replaceRE "<h[2-3] id=\"(.+?)\">.*" "$1" | plainify }}
+        {{- $text := . | plainify }}
+        {{- $level := . | replaceRE "<h([2-3]).*" "$1" | plainify | int }}
+        {{- if eq $level 2 }}
+          {{- if $inChildren }}</ul>{{ $inChildren = false }}{{ end }}
+          {{- if $inH2 }}</li>{{ end }}
+          {{- $inH2 = true }}
+          <li><a href="#{{ $id }}">{{ $text }}</a>
+        {{- else }}
+          {{- if not $inChildren }}<ul>{{ $inChildren = true }}{{ end }}
+          <li><a href="#{{ $id }}">{{ $text }}</a></li>
+        {{- end }}
+      {{- end }}
+      {{- if $inChildren }}</ul>{{ end }}
+      {{- if $inH2 }}</li>{{ end }}
+      </ul>
+    </nav>
+  </details>
+</div>
+{{- end }}
+{{- end }}

@@ -1,0 +1,38 @@
+.terms-page {
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.terms-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  list-style-type: none;
+}
+
+.terms-list li a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.85rem;
+  color: var(--tag-text);
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.terms-list li a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.terms-list .term-count {
+  font-size: 0.75rem;
+  color: var(--secondary);
+}

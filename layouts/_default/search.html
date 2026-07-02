@@ -1,0 +1,15 @@
+{{- define "main" }}
+
+<div class="search-page">
+  <header class="page-header">
+    <h1>{{ .Title | default "Search" }}</h1>
+  </header>
+
+  <div class="search-form" id="searchbox">
+    <input id="searchInput" type="search" placeholder="Search posts..." autocomplete="off" />
+  </div>
+
+  <ul class="search-results" id="searchResults"></ul>
+</div>
+
+{{- end }}

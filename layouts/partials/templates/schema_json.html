@@ -1,0 +1,24 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "{{ if .IsPage }}Article{{ else }}WebPage{{ end }}",
+  "headline": "{{ .Title }}",
+  "description": "{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify }}{{ end }}",
+  "url": "{{ .Permalink }}",
+  {{- with $.Params.cover.image }}
+  "image": "{{ . | absURL }}",
+  {{- end }}
+  "author": {
+    "@type": "Person",
+    "name": "{{ (partial "author.html" $) }}"
+  },
+  {{- if .IsPage }}
+  "datePublished": "{{ .PublishDate }}",
+  "dateModified": "{{ .Lastmod }}",
+  {{- end }}
+  "publisher": {
+    "@type": "Person",
+    "name": "{{ site.Title }}"
+  }
+}
+</script>

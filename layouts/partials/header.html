@@ -1,0 +1,56 @@
+<header class="header">
+  <nav class="nav container">
+    <div class="logo">
+      <a href="/" accesskey="h" class="logo-link">
+        {{- if site.Params.profileMode.imageUrl }}
+        <img class="logo-avatar" src="{{ site.Params.profileMode.imageUrl | absURL }}" alt="" width="28" height="28">
+        {{- end }}
+        <span class="logo-text">{{- site.Title }}</span>
+      </a>
+      <div class="logo-switches">
+        <div class="theme-selector">
+          <button class="theme-selector-btn" aria-label="Select theme" title="Select theme">
+            <span class="theme-indicator catppuccin-mocha"></span>
+            <span>Catppuccin Mocha</span>
+          </button>
+          <div class="theme-dropdown">
+            <button class="theme-option active" data-theme="catppuccin-mocha">
+              <span class="dot catppuccin-mocha"></span>
+              Catppuccin Mocha
+            </button>
+            <button class="theme-option" data-theme="terminal">
+              <span class="dot terminal"></span>
+              Terminal
+            </button>
+            <button class="theme-option" data-theme="github-dark">
+              <span class="dot github-dark"></span>
+              GitHub Dark
+            </button>
+            <button class="theme-option" data-theme="dracula">
+              <span class="dot dracula"></span>
+              Dracula
+            </button>
+            <button class="theme-option" data-theme="solarized-light">
+              <span class="dot solarized-light"></span>
+              Solarized Light
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{- $currentPage := . }}
+    <ul id="menu">
+      {{- range site.Menus.main }}
+      {{- $menu_item_url := (cond (strings.HasSuffix .URL "/") .URL (printf "%s/" .URL)) | relLangURL }}
+      {{- $page_url := $currentPage.RelPermalink | relLangURL }}
+      <li>
+        <a href="{{ .URL | relLangURL }}" title="{{ .Title | default .Name }}">
+          <span{{ if eq $menu_item_url $page_url }} class="active" {{ end }}>
+            {{- .Pre }}{{ .Name }}{{ .Post -}}
+            </span>
+        </a>
+      </li>
+      {{- end }}
+    </ul>
+  </nav>
+</header>

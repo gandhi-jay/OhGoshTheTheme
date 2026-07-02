@@ -1,0 +1,26 @@
+{{- define "main" }}
+
+<div class="archive-page">
+  <header class="page-header">
+    <h1>{{ .Title | default "Archive" }}</h1>
+  </header>
+
+  {{- range .Pages.GroupByDate "2006" }}
+  <div class="archive-year">
+    <h2>{{ .Key }}</h2>
+    {{- range .Pages.GroupByDate "January" }}
+    <div class="archive-month">
+      <h3>{{ .Key }}</h3>
+      {{- range .Pages }}
+      <div class="archive-entry">
+        <span class="entry-date">{{ .Date.Format "Jan 2" }}</span>
+        <a href="{{ .RelPermalink }}" class="entry-title">{{ .Title }}</a>
+      </div>
+      {{- end }}
+    </div>
+    {{- end }}
+  </div>
+  {{- end }}
+</div>
+
+{{- end }}

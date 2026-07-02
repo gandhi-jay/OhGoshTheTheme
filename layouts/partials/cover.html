@@ -1,0 +1,11 @@
+{{- with .cxt.Params.cover }}
+{{- $isHidden := $.isHidden | default false }}
+{{- if and (not $isHidden) .image }}
+<figure class="post-cover">
+  <img loading="lazy" src="{{ .image | absURL }}" alt="{{ .alt | default "Cover image" }}" />
+  {{- if .caption }}
+  <figcaption>{{ .caption }}</figcaption>
+  {{- end }}
+</figure>
+{{- end }}
+{{- end }}

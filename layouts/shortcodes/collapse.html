@@ -1,0 +1,6 @@
+<details{{ if (.Get "open") }} open{{ end }}>
+  <summary>{{ .Get "summary" | markdownify }}</summary>
+  <div class="collapse-content">
+    {{ .Inner | markdownify }}
+  </div>
+</details>

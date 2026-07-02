@@ -1,0 +1,139 @@
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>(function(){var t=localStorage.getItem('theme')||'terminal';document.documentElement.setAttribute('data-theme',t);})();</script>
+
+
+<!-- 2. Inline ALL theme variable blocks — resolves instantly, no network wait -->
+{{- $inlineTheme := resources.Match "css/themes/*.css" | resources.Concat "assets/css/themes.css" | resources.Minify }}
+<style>{{ $inlineTheme.Content | safeCSS }}</style>
+
+{{- /* JS */}}
+{{- $mainjs := resources.Get "js/main.js" | resources.Minify }}
+<script defer src="{{ $mainjs.RelPermalink }}"></script>
+
+
+{{- if hugo.IsProduction | or (eq site.Params.env "production") | and (ne .Params.robotsNoIndex true) }}
+<meta name="robots" content="index, follow">
+{{- else }}
+<meta name="robots" content="noindex, nofollow">
+{{- end }}
+
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ if .Title }}{{ .Title }} | {{ end }}{{ site.Title }}{{ end }}</title>
+
+{{- if .IsHome }}
+{{ with site.Params.keywords -}}<meta name="keywords" content="{{ range $i, $e := . }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}">{{ end }}
+{{- else }}
+<meta name="keywords" content="{{ if .Params.keywords }}{{ range $i, $e := .Params.keywords }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}{{ else }}{{ range $i, $e := .Params.tags }}{{ if $i }}, {{ end }}{{ $e }}{{ end }}{{ end }}">
+{{- end }}
+
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ if or .IsPage .IsSection }}{{ .Summary | plainify }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
+<meta name="author" content="{{ partial "author.html" . }}">
+<link rel="canonical" href="{{ if .Params.canonicalURL }}{{ trim .Params.canonicalURL " " }}{{ else }}{{ .Permalink }}{{ end }}">
+
+{{- /* Fonts */}}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Lato:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+
+{{- /* Styles */}}
+{{- $reset := (resources.Get "css/core/reset.css") }}
+{{- $media := (resources.Get "css/core/responsive.css") }}
+{{- $common := (resources.Match "css/common/*.css") | resources.Concat "assets/css/common.css" }}
+{{- $core := (slice $reset $common $media) | resources.Concat "assets/css/core.css" | resources.Minify }}
+{{- $extended := (resources.Match "css/extended/*.css") | resources.Concat "assets/css/extended.css" | resources.Minify }}
+{{- $stylesheet := (slice $core $extended) | resources.Concat "assets/css/stylesheet.css" }}
+
+<!-- {{- if not site.Params.assets.disableFingerprinting }}
+{{- $stylesheet := $stylesheet | fingerprint }}
+<link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" integrity="{{ $stylesheet.Data.Integrity }}" rel="preload stylesheet">
+{{- else }}
+<link crossorigin="anonymous" href="{{ $stylesheet.RelPermalink }}" rel="preload stylesheet">
+{{- end }} -->
+
+{{- if not site.Params.assets.disableFingerprinting }}
+{{- $stylesheet := $stylesheet | fingerprint }}
+<link
+  rel="preload"
+  as="style"
+  href="{{ $stylesheet.RelPermalink }}"
+  integrity="{{ $stylesheet.Data.Integrity }}"
+  crossorigin="anonymous">
+<link
+  rel="stylesheet"
+  href="{{ $stylesheet.RelPermalink }}"
+  integrity="{{ $stylesheet.Data.Integrity }}"
+  crossorigin="anonymous">
+{{- else }}
+<link
+  rel="preload"
+  as="style"
+  href="{{ $stylesheet.RelPermalink }}"
+  crossorigin="anonymous">
+<link
+  rel="stylesheet"
+  href="{{ $stylesheet.RelPermalink }}"
+  crossorigin="anonymous">
+{{- end }}
+
+
+{{- /* Search */}}
+{{- if (eq .Layout "search") }}
+<link crossorigin="anonymous" rel="preload" as="fetch" href="../index.json">
+{{- $fastsearch := resources.Get "js/fastsearch.js" | js.Build (dict "params" (dict "fuseOpts" site.Params.fuseOpts)) | resources.Minify }}
+{{- $fusejs := resources.Get "js/fuse.basic.min.js" }}
+{{- if not site.Params.assets.disableFingerprinting }}
+{{- $search := (slice $fusejs $fastsearch) | resources.Concat "assets/js/search.js" | fingerprint }}
+<script defer crossorigin="anonymous" src="{{ $search.RelPermalink }}" integrity="{{ $search.Data.Integrity }}"></script>
+{{- else }}
+{{- $search := (slice $fusejs $fastsearch) | resources.Concat "assets/js/search.js" }}
+<script defer src="{{ $search.RelPermalink }}"></script>
+{{- end }}
+{{- end }}
+
+
+
+{{- /* Favicons */}}
+<link rel="icon" href="{{ site.Params.assets.favicon | default "favicon.ico" | absURL }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ site.Params.assets.favicon16x16 | default "favicon-16x16.png" | absURL }}">
+<link rel="icon" type="image/png" sizes="32x32" href="{{ site.Params.assets.favicon32x32 | default "favicon-32x32.png" | absURL }}">
+<link rel="apple-touch-icon" href="{{ site.Params.assets.apple_touch_icon | default "apple-touch-icon.png" | absURL }}">
+<meta name="theme-color" content="{{ site.Params.assets.theme_color | default "#0d0f14" }}">
+
+{{- /* RSS */}}
+{{ range .AlternativeOutputFormats -}}
+<link rel="{{ .Rel }}" type="{{ .MediaType.Type | html }}" href="{{ .Permalink | safeURL }}">
+{{ end -}}
+{{ range .AllTranslations -}}
+<link rel="alternate" hreflang="{{ .Lang }}" href="{{ .Permalink }}">
+{{ end -}}
+
+<noscript>
+  <style>
+    .theme-selector { display: none; }
+  </style>
+</noscript>
+
+{{ if .Params.math | default .Site.Params.math }}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.css">
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.4/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false},
+      {left: '\\(', right: '\\)', display: false},
+      {left: '\\[', right: '\\]', display: true}
+    ]
+  });"></script>
+{{ end }}
+
+{{- partial "extend_head.html" . }}
+
+{{- if hugo.IsProduction | or (eq site.Params.env "production") }}
+{{- template "_internal/google_analytics.html" . }}
+{{- template "partials/templates/opengraph.html" . }}
+{{- template "partials/templates/twitter_cards.html" . }}
+{{- template "partials/templates/schema_json.html" . }}
+{{- end }}

@@ -1,0 +1,80 @@
+.post-entries {
+  margin-top: 1.5rem;
+}
+
+.post-entry {
+  padding: 1.25rem;
+  margin-bottom: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  transition: border-color 0.15s;
+}
+
+.post-entry:hover {
+  border-color: var(--accent);
+}
+
+.entry-header h2 {
+  font-size: 1.15rem;
+  margin: 0 0 0.4rem;
+  font-family: var(--font-mono);
+}
+
+.entry-header h2 a {
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.entry-header h2 a:hover {
+  color: var(--accent);
+}
+
+.entry-content {
+  font-size: 0.85rem;
+  color: var(--secondary);
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.entry-footer {
+  font-size: 0.8rem;
+  color: var(--secondary);
+}
+
+.entry-link {
+  position: absolute;
+  inset: 0;
+}
+
+.first-entry {
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  position: relative;
+  transition: border-color 0.15s;
+}
+
+.first-entry:hover {
+  border-color: var(--accent);
+}
+
+.first-entry .entry-header h2 {
+  font-size: 1.3rem;
+}
+
+.page-header {
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.page-header h1 {
+  margin: 0.5rem 0;
+  font-size: 1.5rem;
+}

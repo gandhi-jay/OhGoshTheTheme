@@ -1,0 +1,31 @@
+[data-theme="solarized-light"] {
+  --bg: #fdf6e3;
+  --surface: #eee8d5;
+  --primary: #586e75;
+  --secondary: #657b83;
+  --accent: #268bd2;
+  --accent2: #859900;
+  --border: #93a1a1;
+  --code-bg: #eee8d5;
+  --selection: #d33682;
+  --btn-bg: #eee8d5;
+  --btn-text: #586e75;
+  --tag-bg: #eee8d5;
+  --tag-text: #268bd2;
+  --input-bg: #fdf6e3;
+  --overlay: rgba(0, 0, 0, 0.15);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --syntax-comment: #839496;
+  --syntax-keyword: #859900;
+  --syntax-function: #268bd2;
+  --syntax-builtin: #2aa198;
+  --syntax-constant: #d33682;
+  --syntax-decorator: #268bd2;
+  --syntax-attr: #b58900;
+  --syntax-variable: #586e75;
+  --syntax-type: #b58900;
+  --syntax-str: #2aa198;
+  --syntax-num: #d33682;
+  --syntax-err: #dc322f;
+  --syntax-ins: #859900;
+}

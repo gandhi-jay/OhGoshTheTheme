@@ -1,0 +1,17 @@
+name = "OhGoshTheTheme"
+license = "MIT"
+licenselink = "https://github.com/gandhi-jay/OhGoshTheTheme/blob/main/LICENSE"
+description = "A retro terminal-inspired Hugo theme with multiple color schemes"
+homepage = "https://github.com/gandhi-jay/OhGoshTheTheme"
+tags = ["terminal", "retro", "dark", "light", "blog", "minimalist", "accessible", "fast"]
+features = [
+  "responsive", "single-column", "blog", "table-of-toc", "opengraph",
+  "favicon", "archive", "share-icons", "multilingual", "social-icons",
+  "minified-assets", "theme-toggle", "dark-mode", "search",
+  "code-highlighting", "math-rendering"
+]
+min_version = "0.120.0"
+
+[author]
+  name = "Jay Gandhi"
+  homepage = "https://jayg.cc/"

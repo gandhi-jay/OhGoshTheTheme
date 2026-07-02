@@ -1,0 +1,17 @@
+read_time:
+  other: "{{ .Count }} min"
+
+words:
+  other: "{{ .Count }} words"
+
+prev_page:
+  other: "Previous"
+
+next_page:
+  other: "Next"
+
+code_copy:
+  other: "copy"
+
+code_copied:
+  other: "copied!"

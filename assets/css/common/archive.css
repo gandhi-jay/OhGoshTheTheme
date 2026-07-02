@@ -1,0 +1,49 @@
+.archive-page {
+  padding: 1.5rem;
+}
+
+.archive-year {
+  margin-bottom: 2rem;
+}
+
+.archive-year h2 {
+  font-size: 1.3rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border);
+  color: var(--accent);
+}
+
+.archive-month {
+  margin-bottom: 0.5rem;
+}
+
+.archive-month h3 {
+  font-size: 1rem;
+  color: var(--secondary);
+  margin: 0.5rem 0;
+}
+
+.archive-entry {
+  padding: 0.5rem 0;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.archive-entry .entry-date {
+  font-size: 0.8rem;
+  color: var(--secondary);
+  white-space: nowrap;
+  min-width: 5ch;
+}
+
+.archive-entry .entry-title {
+  font-size: 0.9rem;
+  color: var(--primary);
+  text-decoration: none;
+}
+
+.archive-entry .entry-title:hover {
+  color: var(--accent);
+}
